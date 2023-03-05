@@ -131,6 +131,7 @@ class _PatientPageState extends State<PatientPage> {
               title: _buildSearchField(),
             )
           : AppBar(
+              elevation: 0,
               backgroundColor: Color(0xffEE4E34),
               actions: [
                 Padding(

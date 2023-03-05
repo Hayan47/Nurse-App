@@ -13,75 +13,73 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Color(0xffFCEDDA),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            //1
-            SizedBox(height: 1),
+    return Scaffold(
+      backgroundColor: Color(0xffFCEDDA),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          //1
+          SizedBox(height: 1),
 
-            //2
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Center(
-                  child: Image.asset(
-                'assets/images/2.png',
-              )),
-            ),
+          //2
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Center(
+                child: Image.asset(
+              'assets/images/2.png',
+            )),
+          ),
 
-            //3
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(20),
+          //3
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Text(
+                  //'Welcome to Nurse App \n \t your perfect guide',
+                  LocaleKeys.welocme.tr(),
+                  style: TextStyle(
+                      fontFamily: 'Shantell',
+                      fontSize: 28,
+                      color: Color(0xffEE4E34)),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/patient');
+                  },
                   child: Text(
-                    //'Welcome to Nurse App \n \t your perfect guide',
-                    LocaleKeys.welocme.tr(),
+                    LocaleKeys.continu.tr(),
                     style: TextStyle(
                         fontFamily: 'Shantell',
-                        fontSize: 28,
+                        fontSize: 20,
                         color: Color(0xffEE4E34)),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/patient');
-                    },
-                    child: Text(
-                      LocaleKeys.continu.tr(),
-                      style: TextStyle(
-                          fontFamily: 'Shantell',
-                          fontSize: 20,
-                          color: Color(0xffEE4E34)),
-                    ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: GestureDetector(
+                  onTap: () {
+                    showDialog(
+                        context: context, builder: (_) => ChangeLanguage());
+                  },
+                  child: Text(
+                    LocaleKeys.language.tr(),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Shantell',
+                        fontSize: 25,
+                        color: Color(0xffEE4E34)),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: GestureDetector(
-                    onTap: () {
-                      showDialog(
-                          context: context, builder: (_) => ChangeLanguage());
-                    },
-                    child: Text(
-                      LocaleKeys.language.tr(),
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Shantell',
-                          fontSize: 25,
-                          color: Color(0xffEE4E34)),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
