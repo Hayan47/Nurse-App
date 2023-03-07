@@ -170,11 +170,12 @@ class _PatientPageState extends State<PatientPage> {
             : searchedForPatients.length,
         itemBuilder: (context, index) {
           return Dismissible(
-            key: ValueKey(
-              _searchTextController.text.isEmpty
-                  ? patients[index].id
-                  : searchedForPatients[index].id,
-            ),
+            key: UniqueKey(),
+            // ValueKey(
+            //   _searchTextController.text.isEmpty
+            //       ? patients[index].id
+            //       : searchedForPatients[index].id,
+            // ),
             direction: DismissDirection.startToEnd,
             onDismissed: (direction) {},
             confirmDismiss: (direction) async {
