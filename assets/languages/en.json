@@ -1,0 +1,21 @@
+{
+  "welocme": "welcome to Nurse App \n \t your perfect guide",
+  "continu": "continue",
+  "takemedicin": "take medecin",
+  "changeonwound": "change on wound",
+  "catheterization": "catheterization",
+  "injection": "injection",
+  "pressure": "pressure gauge",
+  "addpatient": "add patient",
+  "id": "id",
+  "name": "name",
+  "caringtype": "caring type",
+  "reminder": "reminder",
+  "save": "save",
+  "language": "change language",
+  "delete": "delete",
+  "confirm": "Are you sure you want to delete this patient?",
+  "yes": "yes",
+  "no": "no",
+  "patient": "patient"
+}

@@ -1,0 +1,21 @@
+{
+  "welocme": "اهلا بك في تطبيق Nurse App \n \t دليلك المثالي",
+  "continu": "متابعة",
+  "takemedicin": "اخذ دواء",
+  "changeonwound": "تغيير على جرح",
+  "catheterization": "قسطرة",
+  "injection": "حقنة",
+  "pressure": "قياس ضغط",
+  "addpatient": "اضافة مريض",
+  "id": "الرقم",
+  "name": "الاسم",
+  "caringtype": "نوع العناية",
+  "reminder": "منبه",
+  "save": "حفظ",
+  "language": "تغيير اللغة",
+  "delete": "حذف",
+  "confirm": "هل انت متاكد من حذف المريض ؟",
+  "yes": "نعم",
+  "no": "لا",
+  "patient": "مريض"
+}
