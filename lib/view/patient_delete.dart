@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx/controller/home_controller.dart';
+import 'package:getx/model/patient.dart';
 
 class PatientDelete extends StatelessWidget {
   HomeController controller = Get.find();
-  int selectedIndex;
-  PatientDelete({required this.selectedIndex, super.key});
-
+  Patient patient;
+  PatientDelete({required this.patient, super.key});
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -19,7 +19,8 @@ class PatientDelete extends StatelessWidget {
       actions: [
         TextButton(
           onPressed: () {
-            controller.deletePatient(selectedIndex);
+            controller.deletePatient(patient);
+            controller.disableReminder(patient);
             Navigator.of(context).pop(true);
           },
           child: const Text(

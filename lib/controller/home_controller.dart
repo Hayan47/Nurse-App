@@ -3,8 +3,11 @@ import 'package:get/get.dart';
 import '../model/patient.dart';
 import 'package:intl/intl.dart';
 
+import '../sevices/database_helper.dart';
+import '../sevices/notifications.dart';
+
 class HomeController extends GetxController {
-  final idController = TextEditingController();
+  final roomController = TextEditingController();
   final nameController = TextEditingController();
   final caringTypeController = TextEditingController();
   final reminderController = TextEditingController();
@@ -16,83 +19,55 @@ class HomeController extends GetxController {
     'pressure',
   ].obs;
 
-  List<Patient> patients = [
-    Patient(
-        id: 1,
-        name: 'hayan',
-        caringType: 'take medicin',
-        reminder: TimeOfDay(hour: 8, minute: 30)),
-    Patient(
-        id: 2,
-        name: 'hasan',
-        caringType: 'injection',
-        reminder: TimeOfDay(hour: 8, minute: 30)),
-    Patient(
-        id: 3,
-        name: 'ahmed',
-        caringType: 'pressure',
-        reminder: TimeOfDay(hour: 8, minute: 30)),
-    Patient(
-        id: 4,
-        name: 'amjad',
-        caringType: 'changeonwound',
-        reminder: TimeOfDay(hour: 8, minute: 30)),
-    Patient(
-      id: 5,
-      name: 'khaled',
-      caringType: 'catheterization',
-      reminder: TimeOfDay(hour: 8, minute: 30),
-    ),
-    Patient(
-      id: 6,
-      name: 'khalil',
-      caringType: 'pressure',
-      reminder: TimeOfDay(hour: 8, minute: 30),
-    ),
-    Patient(
-      id: 7,
-      name: 'rami',
-      caringType: 'changeonwound',
-      reminder: TimeOfDay(hour: 8, minute: 30),
-    ),
-    Patient(
-      id: 8,
-      name: 'asaad',
-      caringType: 'catheterization',
-      reminder: TimeOfDay(hour: 8, minute: 30),
-    ),
-    Patient(
-      id: 9,
-      name: 'rasheed',
-      caringType: 'injection',
-      reminder: TimeOfDay(hour: 8, minute: 30),
-    ),
-    Patient(
-      id: 10,
-      name: 'mansour',
-      caringType: 'takemedicin',
-      reminder: TimeOfDay(hour: 8, minute: 30),
-    ),
-    Patient(
-      id: 11,
-      name: 'mohammad',
-      caringType: 'pressure',
-      reminder: TimeOfDay(hour: 8, minute: 30),
-    ),
-  ].obs;
+  List<Patient> patients = [];
+  bool isLoading = true;
 
-  void addPatient(Patient patient) {
-    patients.add(patient);
+  DatabaseHelper databaseHelper = DatabaseHelper();
+
+  @override
+  void onInit() async {
+    super.onInit();
+    patients = await databaseHelper.getPatientList();
+    isLoading = false;
     update();
   }
 
-  void deletePatient(int index) {
-    patients.removeAt(index);
+  void addPatient(Patient patient) async {
+    await databaseHelper.addPatient(patient);
+    patients = await databaseHelper.getPatientList();
     update();
   }
 
-  String getformattedTime(TimeOfDay tod) {
-    final now = new DateTime.now();
+  void deletePatient(Patient patient) async {
+    await databaseHelper.deletePatient(patient.id!);
+    patients = await databaseHelper.getPatientList();
+    update();
+  }
+
+  void disableReminder(Patient patient) {
+    if (patient.enableReminder == true) {
+      patient.enableReminder = false;
+      Notifications().cancelNotification(patient.id!);
+      update();
+    } else {
+      patient.enableReminder = true;
+      Notifications().showSchedualedNotification(
+          id: patient.id!,
+          title: patient.caringType,
+          body: patient.name,
+          dateTime: DateTime(
+            DateTime.now().year,
+            DateTime.now().month,
+            DateTime.now().day,
+            patient.reminder.hour,
+            patient.reminder.minute,
+          ));
+      update();
+    }
+  }
+
+  String getformattedTime(DateTime tod) {
+    final now = DateTime.now();
     final dt = DateTime(now.year, now.month, now.day, tod.hour, tod.minute);
     final format = DateFormat.jm(); //"6:00 AM"
     return format.format(dt);

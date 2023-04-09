@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
+import 'package:getx/controller/home_controller.dart';
 import 'package:getx/view/patient_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
-
-  //EE4E34
-  //FCEDDA
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +22,7 @@ class HomePage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Center(
                 child: Image.asset(
-              'assets/images/2.png',
+              'assets/images/logo.png',
             )),
           ),
 
@@ -45,7 +44,7 @@ class HomePage extends StatelessWidget {
                 padding: const EdgeInsets.all(20),
                 child: GestureDetector(
                   onTap: () {
-                    Get.to(PatientPage());
+                    Get.to(() => PatientPage());
                   },
                   child: const Text(
                     'Continue',
