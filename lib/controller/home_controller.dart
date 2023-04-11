@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../model/patient.dart';
 import 'package:intl/intl.dart';
-
 import '../sevices/database_helper.dart';
+import '../sevices/equatable.dart';
 import '../sevices/notifications.dart';
 
 class HomeController extends GetxController {
@@ -11,12 +11,12 @@ class HomeController extends GetxController {
   final nameController = TextEditingController();
   final caringTypeController = TextEditingController();
   final reminderController = TextEditingController();
-  final List<String> caringType = [
-    'take medicin',
-    'change on wound',
-    'catheterization',
-    'injection',
-    'pressure',
+  final List<KeyValueRecordType> caringType = <KeyValueRecordType>[
+    KeyValueRecordType(key: 'takemedicin', value: 'takemedicin'.tr),
+    KeyValueRecordType(key: 'changeonwound', value: 'changeonwound'.tr),
+    KeyValueRecordType(key: 'catheterization', value: 'catheterization'.tr),
+    KeyValueRecordType(key: 'injection', value: 'injection'.tr),
+    KeyValueRecordType(key: 'pressure', value: 'pressure'.tr),
   ].obs;
 
   List<Patient> patients = [];

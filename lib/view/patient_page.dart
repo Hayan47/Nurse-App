@@ -23,9 +23,9 @@ class _PatientPageState extends State<PatientPage> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: const Color(0xffEE4E34),
-        title: const Text(
-          'patients',
-          style: TextStyle(
+        title: Text(
+          'patients'.tr,
+          style: const TextStyle(
               fontFamily: 'Shantell', fontSize: 25, color: Color(0xffFCEDDA)),
         ),
         centerTitle: true,
@@ -37,11 +37,11 @@ class _PatientPageState extends State<PatientPage> {
               )
             : (c.patients.isEmpty)
                 ? Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      const Text(
-                        'Start Adding Patients !',
-                        style: TextStyle(
+                      Text(
+                        'start'.tr,
+                        style: const TextStyle(
                           fontFamily: 'Shantell',
                           fontSize: 25,
                           color: Color(0xffEE4E34),
@@ -49,6 +49,7 @@ class _PatientPageState extends State<PatientPage> {
                         ),
                       ),
                       Lottie.asset('assets/patient.zip'),
+                      const SizedBox(height: 10),
                     ],
                   )
                 : ListView.builder(
@@ -112,7 +113,7 @@ class _PatientPageState extends State<PatientPage> {
                                   const SizedBox(width: 25),
                                   Row(
                                     children: [
-                                      const Text('Room ('),
+                                      Text('${'room'.tr}('),
                                       Text(
                                         c.patients[index].roomNum.toString(),
                                         style: const TextStyle(
@@ -135,7 +136,9 @@ class _PatientPageState extends State<PatientPage> {
                                   ),
                                   Flexible(
                                     child: Text(
-                                      c.patients[index].caringType.toString(),
+                                      c.patients[index].caringType
+                                          .toString()
+                                          .tr,
                                       style: GoogleFonts.poppins(),
                                     ),
                                   ),
@@ -169,9 +172,9 @@ class _PatientPageState extends State<PatientPage> {
             showDialog(context: context, builder: (_) => const AddPatient());
           },
           backgroundColor: const Color(0xffEE4E34),
-          label: const Text(
-            'add patient',
-            style: TextStyle(
+          label: Text(
+            'addpatient'.tr,
+            style: const TextStyle(
               fontFamily: 'Shantell',
               fontSize: 15,
               color: Color(0xffFCCDDA),

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:getx/model/patient.dart';
 import 'package:getx/sevices/notifications.dart';
 import '../controller/home_controller.dart';
+import '../sevices/equatable.dart';
 
 class AddPatient extends StatefulWidget {
   const AddPatient({super.key});
@@ -24,7 +25,7 @@ class _AddPatientState extends State<AddPatient> {
     });
   }
 
-  String dropdownValue = 'take medicin';
+  KeyValueRecordType? dropdownValue;
 
   final HomeController c = Get.find();
   @override
@@ -32,10 +33,10 @@ class _AddPatientState extends State<AddPatient> {
     return Center(
       child: SingleChildScrollView(
         child: AlertDialog(
-          title: const Center(
+          title: Center(
             child: Text(
-              'add patient',
-              style: TextStyle(
+              'addpatient'.tr,
+              style: const TextStyle(
                   fontFamily: 'Shantell',
                   fontSize: 30,
                   color: Color(0xffEE4E34)),
@@ -43,9 +44,9 @@ class _AddPatientState extends State<AddPatient> {
           ),
           content: Column(
             children: [
-              const Text(
-                'name',
-                style: TextStyle(
+              Text(
+                'name'.tr,
+                style: const TextStyle(
                     fontFamily: 'Shantell',
                     fontSize: 20,
                     color: Color(0xffEE4E34)),
@@ -57,14 +58,14 @@ class _AddPatientState extends State<AddPatient> {
                 autovalidateMode: AutovalidateMode.always,
                 validator: (value) {
                   if (value == '') {
-                    return 'you must provide id';
+                    return 'validate1'.tr;
                   }
                 },
               ),
               const SizedBox(height: 25),
-              const Text(
-                'Room',
-                style: TextStyle(
+              Text(
+                'room'.tr,
+                style: const TextStyle(
                     fontFamily: 'Shantell',
                     fontSize: 20,
                     color: Color(0xffEE4E34)),
@@ -76,21 +77,21 @@ class _AddPatientState extends State<AddPatient> {
                 autovalidateMode: AutovalidateMode.always,
                 validator: (value) {
                   if (value == '') {
-                    return 'you must provide id';
+                    return 'validate2'.tr;
                   }
                 },
               ),
               const SizedBox(height: 25),
-              const Text(
-                'caring type',
-                style: TextStyle(
+              Text(
+                'caringtype'.tr,
+                style: const TextStyle(
                     fontFamily: 'Shantell',
                     fontSize: 20,
                     color: Color(0xffEE4E34)),
               ),
               Row(
                 children: [
-                  DropdownButton(
+                  DropdownButton<KeyValueRecordType>(
                     borderRadius: BorderRadius.circular(20),
                     style: const TextStyle(
                         fontFamily: 'Shantell',
@@ -100,23 +101,25 @@ class _AddPatientState extends State<AddPatient> {
                     dropdownColor: const Color(0xffFCEDDA),
                     value: dropdownValue,
                     items: c.caringType
-                        .map((e) => DropdownMenuItem(
-                              value: e,
-                              child: Text(e),
-                            ))
+                        .map<DropdownMenuItem<KeyValueRecordType>>(
+                            (e) => DropdownMenuItem<KeyValueRecordType>(
+                                  value: e,
+                                  child: Text(e.value),
+                                ))
                         .toList(),
-                    onChanged: (String? newValue) {
+                    onChanged: (KeyValueRecordType? newValue) {
                       setState(() {
                         dropdownValue = newValue!;
+                        print(newValue);
                       });
                     },
                   )
                 ],
               ),
               const SizedBox(height: 25),
-              const Text(
-                'reminder',
-                style: TextStyle(
+              Text(
+                'reminder'.tr,
+                style: const TextStyle(
                     fontFamily: 'Shantell',
                     fontSize: 20,
                     color: Color(0xffEE4E34)),
@@ -140,7 +143,7 @@ class _AddPatientState extends State<AddPatient> {
                   Patient patient = Patient(
                     roomNum: int.parse(c.roomController.text),
                     name: c.nameController.text,
-                    caringType: dropdownValue,
+                    caringType: dropdownValue!.key,
                     reminder: DateTime(
                       DateTime.now().year,
                       DateTime.now().month,
@@ -170,9 +173,9 @@ class _AddPatientState extends State<AddPatient> {
                   c.roomController.clear();
                   Get.back();
                 },
-                child: const Text(
-                  'save',
-                  style: TextStyle(color: Color(0xffEE4E34)),
+                child: Text(
+                  'save'.tr,
+                  style: const TextStyle(color: Color(0xffEE4E34)),
                 ))
           ],
         ),

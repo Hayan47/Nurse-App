@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/route_manager.dart';
-import 'package:getx/controller/home_controller.dart';
 import 'package:getx/view/patient_page.dart';
+import 'change_language.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -30,11 +29,11 @@ class HomePage extends StatelessWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Padding(
-                padding: EdgeInsets.all(20),
+              Padding(
+                padding: const EdgeInsets.all(20),
                 child: Text(
-                  'Welcome to Nurse App \n \t your perfect guide',
-                  style: TextStyle(
+                  'welocme'.tr,
+                  style: const TextStyle(
                       fontFamily: 'Shantell',
                       fontSize: 28,
                       color: Color(0xffEE4E34)),
@@ -44,13 +43,30 @@ class HomePage extends StatelessWidget {
                 padding: const EdgeInsets.all(20),
                 child: GestureDetector(
                   onTap: () {
-                    Get.to(() => PatientPage());
+                    Get.to(() => const PatientPage());
                   },
-                  child: const Text(
-                    'Continue',
-                    style: TextStyle(
+                  child: Text(
+                    'continu'.tr,
+                    style: const TextStyle(
                         fontFamily: 'Shantell',
                         fontSize: 20,
+                        color: Color(0xffEE4E34)),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: GestureDetector(
+                  onTap: () {
+                    showDialog(
+                        context: context, builder: (_) => ChangeLanguage());
+                  },
+                  child: Text(
+                    'language'.tr,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Shantell',
+                        fontSize: 25,
                         color: Color(0xffEE4E34)),
                   ),
                 ),

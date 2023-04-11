@@ -10,12 +10,12 @@ class PatientDelete extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text(
-        'delete',
-        style: TextStyle(
+      title: Text(
+        'delete'.tr,
+        style: const TextStyle(
             fontFamily: 'Shantell', fontSize: 20, color: Color(0xffEE4E34)),
       ),
-      content: const Text('confirm'),
+      content: Text('confirm'.tr),
       actions: [
         TextButton(
           onPressed: () {
@@ -23,9 +23,9 @@ class PatientDelete extends StatelessWidget {
             controller.disableReminder(patient);
             Navigator.of(context).pop(true);
           },
-          child: const Text(
-            'yes',
-            style: TextStyle(
+          child: Text(
+            'yes'.tr,
+            style: const TextStyle(
                 fontFamily: 'Shantell', fontSize: 20, color: Color(0xffEE4E34)),
           ),
         ),
@@ -33,9 +33,9 @@ class PatientDelete extends StatelessWidget {
           onPressed: () {
             Get.back();
           },
-          child: const Text(
-            'no',
-            style: TextStyle(
+          child: Text(
+            'no'.tr,
+            style: const TextStyle(
                 fontFamily: 'Shantell', fontSize: 20, color: Color(0xffEE4E34)),
           ),
         )
