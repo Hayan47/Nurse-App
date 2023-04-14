@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:getx/controller/home_controller.dart';
 import 'package:getx/view/patient_delete.dart';
@@ -15,27 +16,35 @@ class PatientPage extends StatefulWidget {
 
 class _PatientPageState extends State<PatientPage> {
   final HomeController controller = Get.put(HomeController());
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffFCEDDA),
+      //appbar
       appBar: AppBar(
+        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.abc))],
         elevation: 0,
         backgroundColor: const Color(0xffEE4E34),
         title: Text(
           'patients'.tr,
           style: const TextStyle(
-              fontFamily: 'Shantell', fontSize: 25, color: Color(0xffFCEDDA)),
+            fontFamily: 'Shantell',
+            fontSize: 25,
+            color: Color(0xffFCEDDA),
+            fontWeight: FontWeight.bold,
+          ),
         ),
         centerTitle: true,
       ),
+      //body
       body: GetBuilder<HomeController>(
         builder: (c) => c.isLoading
+            //loading
             ? const Center(
                 child: CircularProgressIndicator(color: Colors.black),
               )
             : (c.patients.isEmpty)
+                //empty list
                 ? Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -52,136 +61,202 @@ class _PatientPageState extends State<PatientPage> {
                       const SizedBox(height: 10),
                     ],
                   )
-                : ListView.builder(
-                    itemCount: c.patients.length,
-                    itemBuilder: (context, index) {
-                      return Dismissible(
-                        key: UniqueKey(),
-                        direction: DismissDirection.startToEnd,
-                        onDismissed: (direction) {},
-                        confirmDismiss: (direction) async {
-                          final result = await showDialog(
-                            context: context,
-                            builder: (_) => PatientDelete(
-                              patient: c.patients[index],
+                //show patients list
+                : NotificationListener<UserScrollNotification>(
+                    onNotification: (notification) {
+                      if (notification.direction == ScrollDirection.forward &&
+                          c.isVisible == false) {
+                        c.makeVisible(true);
+                      } else if (notification.direction ==
+                              ScrollDirection.reverse &&
+                          c.isVisible == true) {
+                        c.makeVisible(false);
+                      }
+
+                      return true;
+                    },
+                    //list view
+                    child: ListView.builder(
+                      itemCount: c.patients.length,
+                      itemBuilder: (context, index) {
+                        return Dismissible(
+                          key: UniqueKey(),
+                          direction: DismissDirection.startToEnd,
+                          onDismissed: (direction) {},
+                          confirmDismiss: (direction) async {
+                            final result = await showDialog(
+                              context: context,
+                              builder: (_) => PatientDelete(
+                                patient: c.patients[index],
+                              ),
+                            );
+                            return result;
+                          },
+                          //delete icon
+                          background: Padding(
+                            padding: const EdgeInsets.only(
+                                top: 8, right: 10, left: 10),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                color: const Color(0xffEE4E34),
+                              ),
+                              padding: const EdgeInsets.only(left: 16),
+                              child: const Align(
+                                alignment: Alignment.centerLeft,
+                                child: Icon(
+                                  Icons.delete,
+                                  color: Colors.white,
+                                ),
+                              ),
                             ),
-                          );
-                          return result;
-                        },
-                        background: Padding(
-                          padding: const EdgeInsets.only(
-                              top: 8, right: 10, left: 10),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              color: const Color(0xffEE4E34),
-                            ),
-                            padding: const EdgeInsets.only(left: 16),
-                            child: const Align(
-                              alignment: Alignment.centerLeft,
-                              child: Icon(
-                                Icons.delete,
+                          ),
+                          //patient card
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                top: 8, right: 10, left: 10),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
                                 color: Colors.white,
                               ),
-                            ),
-                          ),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              top: 8, right: 10, left: 10),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              color: Colors.white,
-                            ),
-                            child: ListTile(
-                              leading: const Icon(
-                                Icons.person,
-                                color: Color(0xffEE4E34),
-                              ),
-                              title: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    c.patients[index].name,
-                                    style: const TextStyle(
-                                        fontFamily: 'Shantell',
-                                        fontSize: 25,
-                                        color: Color(0xffEE4E34)),
-                                  ),
-                                  const SizedBox(width: 25),
-                                  Row(
-                                    children: [
-                                      Text('${'room'.tr}('),
-                                      Text(
-                                        c.patients[index].roomNum.toString(),
+                              child: ListTile(
+                                //person icon + name
+                                leading: const Icon(
+                                  Icons.person,
+                                  color: Color(0xffEE4E34),
+                                ),
+                                title: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Flexible(
+                                      child: Text(
+                                        c.patients[index].name,
                                         style: const TextStyle(
                                             fontFamily: 'Shantell',
-                                            fontSize: 20,
+                                            fontSize: 25,
                                             color: Color(0xffEE4E34)),
+                                        maxLines: 2,
+                                        textAlign: TextAlign.start,
+                                        overflow: TextOverflow.clip,
                                       ),
-                                      const Text(')'),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              subtitle: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    c.getformattedTime(
-                                        c.patients[index].reminder),
-                                  ),
-                                  Flexible(
-                                    child: Text(
-                                      c.patients[index].caringType
-                                          .toString()
-                                          .tr,
-                                      style: GoogleFonts.poppins(),
                                     ),
-                                  ),
-                                ],
+                                    const SizedBox(width: 25),
+                                    Flexible(
+                                      child: RichText(
+                                        text: TextSpan(children: [
+                                          TextSpan(
+                                            text: '${'room'.tr}(',
+                                            style: const TextStyle(
+                                              fontFamily: 'Shantell',
+                                              fontSize: 16,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                          TextSpan(
+                                            text: c.patients[index].roomNum
+                                                .toString(),
+                                            style: const TextStyle(
+                                                fontFamily: 'Shantell',
+                                                fontSize: 16,
+                                                color: Color(0xffEE4E34)),
+                                          ),
+                                          const TextSpan(
+                                            text: ')',
+                                            style: TextStyle(
+                                              fontFamily: 'Shantell',
+                                              fontSize: 16,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                        ]),
+                                      ),
+                                    )
+                                    // Text('${'room'.tr}('),
+                                    // Flexible(
+                                    //   child: Text(
+                                    //     c.patients[index].roomNum
+                                    //         .toString(),
+                                    // style: const TextStyle(
+                                    //     fontFamily: 'Shantell',
+                                    //     fontSize: 20,
+                                    //     color: Color(0xffEE4E34)),
+                                    //     maxLines: 2,
+                                    //     textAlign: TextAlign.end,
+                                    //     overflow: TextOverflow.clip,
+                                    //   ),
+                                    // ),
+                                    // const Text(')'),
+                                  ],
+                                ),
+                                //reminder + caring type
+                                subtitle: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      c.getformattedTime(
+                                          c.patients[index].reminder),
+                                    ),
+                                    const SizedBox(width: 10),
+                                    Flexible(
+                                      child: Text(
+                                        c.patients[index].caringType
+                                            .toString()
+                                            .tr,
+                                        style: GoogleFonts.poppins(),
+                                        maxLines: 2,
+                                        textAlign: TextAlign.end,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                trailing: GestureDetector(
+                                    onTap: () {
+                                      c.disableReminder(c.patients[index]);
+                                    },
+                                    child: c.patients[index].enableReminder
+                                        ? const Icon(
+                                            Icons.alarm_rounded,
+                                            color: Color(0xffEE4E34),
+                                          )
+                                        : const Icon(
+                                            Icons.alarm_rounded,
+                                            color: Color(0xffFCEDDA),
+                                          )),
                               ),
-                              trailing: GestureDetector(
-                                  onTap: () {
-                                    c.disableReminder(c.patients[index]);
-                                  },
-                                  child: c.patients[index].enableReminder
-                                      ? const Icon(
-                                          Icons.alarm_rounded,
-                                          color: Color(0xffEE4E34),
-                                        )
-                                      : const Icon(
-                                          Icons.alarm_rounded,
-                                          color: Color(0xffFCEDDA),
-                                        )),
                             ),
                           ),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: FloatingActionButton.extended(
-          onPressed: () {
-            showDialog(context: context, builder: (_) => const AddPatient());
-          },
-          backgroundColor: const Color(0xffEE4E34),
-          label: Text(
-            'addpatient'.tr,
-            style: const TextStyle(
-              fontFamily: 'Shantell',
-              fontSize: 15,
-              color: Color(0xffFCCDDA),
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
+      floatingActionButton: GetBuilder<HomeController>(
+        id: 'floating',
+        builder: (c) => c.isVisible
+            ? Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: FloatingActionButton.extended(
+                  onPressed: () {
+                    showDialog(
+                        context: context, builder: (_) => const AddPatient());
+                  },
+                  backgroundColor: const Color(0xffEE4E34),
+                  label: Text(
+                    'addpatient'.tr,
+                    style: const TextStyle(
+                      fontFamily: 'Shantell',
+                      fontSize: 15,
+                      color: Color(0xffFCCDDA),
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              )
+            : Container(),
       ),
     );
   }

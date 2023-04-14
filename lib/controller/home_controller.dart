@@ -11,6 +11,7 @@ class HomeController extends GetxController {
   final nameController = TextEditingController();
   final caringTypeController = TextEditingController();
   final reminderController = TextEditingController();
+
   final List<KeyValueRecordType> caringType = <KeyValueRecordType>[
     KeyValueRecordType(key: 'takemedicin', value: 'takemedicin'.tr),
     KeyValueRecordType(key: 'changeonwound', value: 'changeonwound'.tr),
@@ -23,6 +24,8 @@ class HomeController extends GetxController {
   bool isLoading = true;
 
   DatabaseHelper databaseHelper = DatabaseHelper();
+
+  bool isVisible = true;
 
   @override
   void onInit() async {
@@ -71,5 +74,10 @@ class HomeController extends GetxController {
     final dt = DateTime(now.year, now.month, now.day, tod.hour, tod.minute);
     final format = DateFormat.jm(); //"6:00 AM"
     return format.format(dt);
+  }
+
+  void makeVisible(bool v) {
+    isVisible = v;
+    update(['floating']);
   }
 }

@@ -4,7 +4,8 @@ class Localization extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
         'en': {
-          "welocme": "welcome to Nurse App \n \t your perfect guide",
+          "welocme": "welcome to Nurse App",
+          "guide": "your perfect guide",
           "continu": "continue",
           "takemedicin": "take medecin",
           "changeonwound": "change on wound",
@@ -30,7 +31,8 @@ class Localization extends Translations {
           'care': '@care',
         },
         'ar': {
-          "welocme": "اهلا بك في تطبيق الممرض \n \t دليلك المثالي",
+          "welocme": "اهلا بك في تطبيق الممرض",
+          "guide": "دليلك المثالي",
           "continu": "متابعة",
           "takemedicin": "اخذ دواء",
           "changeonwound": "تغيير على جرح",
@@ -56,7 +58,8 @@ class Localization extends Translations {
           'care': '@care',
         },
         'fr': {
-          "welocme": "bienvenue dans Nurse App \n \t votre guide parfait",
+          "welocme": "bienvenue dans application infirmiere",
+          "guide": "votre guide parfait",
           "continu": "continuer",
           "takemedicin": "prendre des medicaments",
           "changeonwound": "changement sur blessure",

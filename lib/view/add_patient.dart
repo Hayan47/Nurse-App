@@ -140,38 +140,39 @@ class _AddPatientState extends State<AddPatient> {
           actions: [
             TextButton(
                 onPressed: () {
-                  Patient patient = Patient(
-                    roomNum: int.parse(c.roomController.text),
-                    name: c.nameController.text,
-                    caringType: dropdownValue!.key,
-                    reminder: DateTime(
-                      DateTime.now().year,
-                      DateTime.now().month,
-                      DateTime.now().day,
-                      _timeOfDay.hour,
-                      _timeOfDay.minute,
-                    ),
-                    enableReminder: true,
-                  );
                   if (c.roomController.text.isNotEmpty &&
-                      c.nameController.text.isNotEmpty) {
-                    c.addPatient(patient);
-                  }
-                  Notifications().showSchedualedNotification(
-                      id: 1,
-                      title: patient.caringType,
-                      body:
-                          '${c.nameController.text} (Room ${c.roomController.text})',
-                      dateTime: DateTime(
+                      c.nameController.text.isNotEmpty &&
+                      dropdownValue != null) {
+                    Patient patient = Patient(
+                      roomNum: int.parse(c.roomController.text),
+                      name: c.nameController.text,
+                      caringType: dropdownValue!.key,
+                      reminder: DateTime(
                         DateTime.now().year,
                         DateTime.now().month,
                         DateTime.now().day,
                         _timeOfDay.hour,
                         _timeOfDay.minute,
-                      ));
-                  c.nameController.clear();
-                  c.roomController.clear();
-                  Get.back();
+                      ),
+                      enableReminder: true,
+                    );
+                    c.addPatient(patient);
+                    Notifications().showSchedualedNotification(
+                        id: 1,
+                        title: patient.caringType,
+                        body:
+                            '${c.nameController.text} (Room ${c.roomController.text})',
+                        dateTime: DateTime(
+                          DateTime.now().year,
+                          DateTime.now().month,
+                          DateTime.now().day,
+                          _timeOfDay.hour,
+                          _timeOfDay.minute,
+                        ));
+                    c.nameController.clear();
+                    c.roomController.clear();
+                    Get.back();
+                  }
                 },
                 child: Text(
                   'save'.tr,

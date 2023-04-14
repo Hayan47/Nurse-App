@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+import 'package:get_storage/get_storage.dart';
+import '../controller/home_controller.dart';
 
 class ChangeLanguage extends StatefulWidget {
   const ChangeLanguage({super.key});
@@ -10,6 +11,8 @@ class ChangeLanguage extends StatefulWidget {
 }
 
 class _ChangeLanguageState extends State<ChangeLanguage> {
+  final HomeController controller = Get.put(HomeController());
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -21,6 +24,7 @@ class _ChangeLanguageState extends State<ChangeLanguage> {
                 TextButton(
                     onPressed: () async {
                       var locale = const Locale('en');
+                      GetStorage().write('language', 'en');
                       Get.updateLocale(locale);
                       Get.back();
                     },
@@ -34,6 +38,7 @@ class _ChangeLanguageState extends State<ChangeLanguage> {
                 TextButton(
                     onPressed: () async {
                       var locale = const Locale('ar');
+                      GetStorage().write('language', 'ar');
                       Get.updateLocale(locale);
                       Get.back();
                     },
@@ -47,6 +52,7 @@ class _ChangeLanguageState extends State<ChangeLanguage> {
                 TextButton(
                     onPressed: () async {
                       var locale = const Locale('fr');
+                      GetStorage().write('language', 'fr');
                       Get.updateLocale(locale);
                       Get.back();
                     },
