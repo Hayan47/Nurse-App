@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import '../controller/home_controller.dart';
 
 class ChangeLanguage extends StatefulWidget {
   const ChangeLanguage({super.key});
@@ -11,13 +10,13 @@ class ChangeLanguage extends StatefulWidget {
 }
 
 class _ChangeLanguageState extends State<ChangeLanguage> {
-  final HomeController controller = Get.put(HomeController());
-
   @override
   Widget build(BuildContext context) {
     return Center(
       child: SingleChildScrollView(
         child: AlertDialog(
+          backgroundColor: Theme.of(context).cardColor,
+          shadowColor: Theme.of(context).cardColor,
           title: Center(
             child: Column(
               children: [

@@ -9,14 +9,11 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffFCEDDA),
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             //1
-            //const SizedBox(height: 1),
-            //2
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Center(
@@ -25,7 +22,7 @@ class HomePage extends StatelessWidget {
               )),
             ),
 
-            //3
+            //2
             Column(
               children: [
                 Column(

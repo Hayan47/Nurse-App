@@ -5,6 +5,7 @@ import 'package:getx/controller/home_controller.dart';
 import 'package:getx/view/patient_delete.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import '../sevices/themes.dart';
 import 'add_patient.dart';
 
 class PatientPage extends StatefulWidget {
@@ -19,20 +20,19 @@ class _PatientPageState extends State<PatientPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffFCEDDA),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       //appbar
       appBar: AppBar(
-        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.abc))],
+        actions: [
+          IconButton(
+              onPressed: () {
+                currentTheme.toggleTheme();
+              },
+              icon: const Icon(Icons.brightness_4_rounded))
+        ],
         elevation: 0,
-        backgroundColor: const Color(0xffEE4E34),
         title: Text(
           'patients'.tr,
-          style: const TextStyle(
-            fontFamily: 'Shantell',
-            fontSize: 25,
-            color: Color(0xffFCEDDA),
-            fontWeight: FontWeight.bold,
-          ),
         ),
         centerTitle: true,
       ),
@@ -118,7 +118,7 @@ class _PatientPageState extends State<PatientPage> {
                             child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(15),
-                                color: Colors.white,
+                                color: Theme.of(context).cardColor,
                               ),
                               child: ListTile(
                                 //person icon + name
@@ -148,10 +148,11 @@ class _PatientPageState extends State<PatientPage> {
                                         text: TextSpan(children: [
                                           TextSpan(
                                             text: '${'room'.tr}(',
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                               fontFamily: 'Shantell',
                                               fontSize: 16,
-                                              color: Colors.black,
+                                              color:
+                                                  Theme.of(context).hintColor,
                                             ),
                                           ),
                                           TextSpan(
@@ -159,15 +160,17 @@ class _PatientPageState extends State<PatientPage> {
                                                 .toString(),
                                             style: const TextStyle(
                                                 fontFamily: 'Shantell',
+                                                fontWeight: FontWeight.bold,
                                                 fontSize: 16,
                                                 color: Color(0xffEE4E34)),
                                           ),
-                                          const TextSpan(
+                                          TextSpan(
                                             text: ')',
                                             style: TextStyle(
                                               fontFamily: 'Shantell',
                                               fontSize: 16,
-                                              color: Colors.black,
+                                              color:
+                                                  Theme.of(context).hintColor,
                                             ),
                                           ),
                                         ]),
@@ -197,7 +200,11 @@ class _PatientPageState extends State<PatientPage> {
                                   children: [
                                     Text(
                                       c.getformattedTime(
-                                          c.patients[index].reminder),
+                                        c.patients[index].reminder,
+                                      ),
+                                      style: GoogleFonts.poppins(
+                                        color: Theme.of(context).shadowColor,
+                                      ),
                                     ),
                                     const SizedBox(width: 10),
                                     Flexible(
@@ -205,7 +212,9 @@ class _PatientPageState extends State<PatientPage> {
                                         c.patients[index].caringType
                                             .toString()
                                             .tr,
-                                        style: GoogleFonts.poppins(),
+                                        style: GoogleFonts.poppins(
+                                          color: Theme.of(context).shadowColor,
+                                        ),
                                         maxLines: 2,
                                         textAlign: TextAlign.end,
                                       ),
@@ -240,6 +249,7 @@ class _PatientPageState extends State<PatientPage> {
             ? Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: FloatingActionButton.extended(
+                  elevation: 0,
                   onPressed: () {
                     showDialog(
                         context: context, builder: (_) => const AddPatient());

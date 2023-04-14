@@ -10,12 +10,17 @@ class PatientDelete extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      backgroundColor: Theme.of(context).cardColor,
+      shadowColor: Theme.of(context).cardColor,
       title: Text(
         'delete'.tr,
         style: const TextStyle(
             fontFamily: 'Shantell', fontSize: 20, color: Color(0xffEE4E34)),
       ),
-      content: Text('confirm'.tr),
+      content: Text(
+        'confirm'.tr,
+        style: Theme.of(context).textTheme.headline1,
+      ),
       actions: [
         TextButton(
           onPressed: () {

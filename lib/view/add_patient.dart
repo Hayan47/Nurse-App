@@ -17,22 +17,28 @@ class _AddPatientState extends State<AddPatient> {
       TimeOfDay(hour: DateTime.now().hour, minute: DateTime.now().minute);
 
   void _showTimePicker() {
-    showTimePicker(context: context, initialTime: TimeOfDay.now())
-        .then((value) {
-      setState(() {
-        _timeOfDay = value!;
-      });
+    showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    ).then((value) {
+      if (value != null) {
+        setState(() {
+          _timeOfDay = value;
+        });
+      }
     });
   }
 
   KeyValueRecordType? dropdownValue;
 
-  final HomeController c = Get.find();
+  final HomeController c = Get.put(HomeController());
   @override
   Widget build(BuildContext context) {
     return Center(
       child: SingleChildScrollView(
         child: AlertDialog(
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          shadowColor: Theme.of(context).cardColor,
           title: Center(
             child: Text(
               'addpatient'.tr,
@@ -55,6 +61,7 @@ class _AddPatientState extends State<AddPatient> {
                 controller: c.nameController,
                 keyboardType: TextInputType.text,
                 textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.headline1,
                 autovalidateMode: AutovalidateMode.always,
                 validator: (value) {
                   if (value == '') {
@@ -74,6 +81,7 @@ class _AddPatientState extends State<AddPatient> {
                 controller: c.roomController,
                 keyboardType: TextInputType.number,
                 textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.headline1,
                 autovalidateMode: AutovalidateMode.always,
                 validator: (value) {
                   if (value == '') {
@@ -98,7 +106,7 @@ class _AddPatientState extends State<AddPatient> {
                         fontSize: 15,
                         color: Color(0xffEE4E34)),
                     elevation: 0,
-                    dropdownColor: const Color(0xffFCEDDA),
+                    dropdownColor: Theme.of(context).cardColor,
                     value: dropdownValue,
                     items: c.caringType
                         .map<DropdownMenuItem<KeyValueRecordType>>(
