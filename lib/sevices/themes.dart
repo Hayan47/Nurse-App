@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 
 CustomTheme currentTheme = CustomTheme();
 
 class CustomTheme with ChangeNotifier {
   static bool isDarkTheme = false;
 
-  ThemeMode get currentTheme => isDarkTheme ? ThemeMode.dark : ThemeMode.light;
+  ThemeMode get currentTheme => (GetStorage().read('isDarkTheme') == 'true')
+      ? ThemeMode.dark
+      : ThemeMode.light;
 
   void toggleTheme() {
     isDarkTheme = !isDarkTheme;
+    GetStorage().write('isDarkTheme', '$isDarkTheme');
     notifyListeners();
   }
 

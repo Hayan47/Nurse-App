@@ -28,7 +28,7 @@ class Localization extends Translations {
           'validate2': 'you must provide room number',
           'start': 'Start Adding Patients !',
           'room': 'Room',
-          'care': '@care',
+          'select': 'select a type',
         },
         'ar': {
           "welocme": "اهلا بك في تطبيق الممرض",
@@ -55,7 +55,7 @@ class Localization extends Translations {
           'validate2': 'يجب اضافة رقم غرفة',
           'start': 'ابدأ باضافة المرضى !',
           'room': 'غرفة',
-          'care': '@care',
+          'select': 'اختر نوعا',
         },
         'fr': {
           "welocme": "bienvenue dans application infirmiere",
@@ -82,7 +82,7 @@ class Localization extends Translations {
           'validate2': 'vous devez fournir le numéro de chambre',
           'start': 'Commencez à ajouter des patients !',
           'room': 'Chambre',
-          'care': '@care',
+          'select': 'selectionnez un type',
         }
       };
 }

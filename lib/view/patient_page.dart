@@ -1,3 +1,4 @@
+import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
@@ -40,8 +41,10 @@ class _PatientPageState extends State<PatientPage> {
       body: GetBuilder<HomeController>(
         builder: (c) => c.isLoading
             //loading
-            ? const Center(
-                child: CircularProgressIndicator(color: Colors.black),
+            ? Center(
+                child: CircularProgressIndicator(
+                  color: Theme.of(context).hintColor,
+                ),
               )
             : (c.patients.isEmpty)
                 //empty list
@@ -50,6 +53,7 @@ class _PatientPageState extends State<PatientPage> {
                     children: [
                       Text(
                         'start'.tr,
+                        textAlign: TextAlign.center,
                         style: const TextStyle(
                           fontFamily: 'Shantell',
                           fontSize: 25,
@@ -131,18 +135,21 @@ class _PatientPageState extends State<PatientPage> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Flexible(
-                                      child: Text(
+                                      child: ExpandableText(
                                         c.patients[index].name,
                                         style: const TextStyle(
                                             fontFamily: 'Shantell',
                                             fontSize: 25,
                                             color: Color(0xffEE4E34)),
-                                        maxLines: 2,
+                                        linkColor: Colors.grey,
+                                        collapseOnTextTap: true,
+                                        expandOnTextTap: true,
+                                        expandText: '',
+                                        animation: true,
+                                        maxLines: 1,
                                         textAlign: TextAlign.start,
-                                        overflow: TextOverflow.clip,
                                       ),
                                     ),
-                                    const SizedBox(width: 25),
                                     Flexible(
                                       child: RichText(
                                         text: TextSpan(children: [
@@ -176,21 +183,6 @@ class _PatientPageState extends State<PatientPage> {
                                         ]),
                                       ),
                                     )
-                                    // Text('${'room'.tr}('),
-                                    // Flexible(
-                                    //   child: Text(
-                                    //     c.patients[index].roomNum
-                                    //         .toString(),
-                                    // style: const TextStyle(
-                                    //     fontFamily: 'Shantell',
-                                    //     fontSize: 20,
-                                    //     color: Color(0xffEE4E34)),
-                                    //     maxLines: 2,
-                                    //     textAlign: TextAlign.end,
-                                    //     overflow: TextOverflow.clip,
-                                    //   ),
-                                    // ),
-                                    // const Text(')'),
                                   ],
                                 ),
                                 //reminder + caring type
@@ -247,7 +239,7 @@ class _PatientPageState extends State<PatientPage> {
         id: 'floating',
         builder: (c) => c.isVisible
             ? Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8),
                 child: FloatingActionButton.extended(
                   elevation: 0,
                   onPressed: () {
@@ -259,7 +251,7 @@ class _PatientPageState extends State<PatientPage> {
                     'addpatient'.tr,
                     style: const TextStyle(
                       fontFamily: 'Shantell',
-                      fontSize: 15,
+                      fontSize: 16,
                       color: Color(0xffFCCDDA),
                       fontWeight: FontWeight.bold,
                     ),

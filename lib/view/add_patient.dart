@@ -1,3 +1,4 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx/model/patient.dart';
@@ -97,32 +98,73 @@ class _AddPatientState extends State<AddPatient> {
                     fontSize: 20,
                     color: Color(0xffEE4E34)),
               ),
-              Row(
-                children: [
-                  DropdownButton<KeyValueRecordType>(
-                    borderRadius: BorderRadius.circular(20),
+              const SizedBox(height: 15),
+              DropdownButtonHideUnderline(
+                child: DropdownButton2<KeyValueRecordType>(
+                  hint: Text(
+                    'select'.tr,
+                    textAlign: TextAlign.center,
                     style: const TextStyle(
-                        fontFamily: 'Shantell',
-                        fontSize: 15,
-                        color: Color(0xffEE4E34)),
-                    elevation: 0,
-                    dropdownColor: Theme.of(context).cardColor,
-                    value: dropdownValue,
-                    items: c.caringType
-                        .map<DropdownMenuItem<KeyValueRecordType>>(
-                            (e) => DropdownMenuItem<KeyValueRecordType>(
-                                  value: e,
-                                  child: Text(e.value),
-                                ))
-                        .toList(),
-                    onChanged: (KeyValueRecordType? newValue) {
-                      setState(() {
-                        dropdownValue = newValue!;
-                        print(newValue);
-                      });
-                    },
-                  )
-                ],
+                      color: Colors.grey,
+                    ),
+                  ),
+                  style: const TextStyle(
+                      fontFamily: 'Shantell',
+                      fontSize: 15,
+                      color: Color(0xffEE4E34)),
+                  value: dropdownValue,
+                  items: c.caringType
+                      .map<DropdownMenuItem<KeyValueRecordType>>(
+                          (e) => DropdownMenuItem<KeyValueRecordType>(
+                                value: e,
+                                child: Text(e.value),
+                              ))
+                      .toList(),
+                  onChanged: (KeyValueRecordType? newValue) {
+                    setState(() {
+                      dropdownValue = newValue!;
+                      print(newValue);
+                    });
+                  },
+
+                  //button style
+                  buttonStyleData: ButtonStyleData(
+                    height: 40,
+                    elevation: 2,
+                    // padding: const EdgeInsets.symmetric(horizontal: 14),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).cardColor,
+                      borderRadius: BorderRadius.circular(14),
+                      border: Border.all(
+                        color: const Color(0xffEE4E34),
+                      ),
+                    ),
+                  ),
+
+                  //icon style
+                  iconStyleData: const IconStyleData(
+                    icon: Icon(
+                      Icons.keyboard_arrow_down_rounded,
+                      color: Color(0xffEE4E34),
+                      size: 25,
+                    ),
+                  ),
+
+                  //dropdown style
+                  dropdownStyleData: DropdownStyleData(
+                    maxHeight: 300,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Theme.of(context).cardColor,
+                    ),
+                    offset: const Offset(0, 30),
+                    scrollbarTheme: ScrollbarThemeData(
+                      radius: const Radius.circular(40),
+                      thickness: MaterialStateProperty.all(6),
+                      thumbColor: MaterialStateProperty.all(Color(0xffEE4E34)),
+                    ),
+                  ),
+                ),
               ),
               const SizedBox(height: 25),
               Text(
@@ -169,7 +211,7 @@ class _AddPatientState extends State<AddPatient> {
                         id: 1,
                         title: patient.caringType,
                         body:
-                            '${c.nameController.text} (Room ${c.roomController.text})',
+                            '${c.nameController.text} (Room ${c.roomController.text}) ${_timeOfDay.hour} : ${_timeOfDay.minute}',
                         dateTime: DateTime(
                           DateTime.now().year,
                           DateTime.now().month,

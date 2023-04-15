@@ -50,7 +50,7 @@ class Notifications {
     print(currentTimeZone);
 
     //reoeat every day
-    tz.TZDateTime _nextInstanceOfReminder() {
+    tz.TZDateTime nextInstanceOfReminder() {
       final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
 
       tz.TZDateTime scheduledDate = tz.TZDateTime(
@@ -73,7 +73,7 @@ class Notifications {
         id,
         title,
         body,
-        _nextInstanceOfReminder(),
+        nextInstanceOfReminder(),
         await notificationDetails(),
         androidAllowWhileIdle: true,
         uiLocalNotificationDateInterpretation:
@@ -81,7 +81,7 @@ class Notifications {
         matchDateTimeComponents: DateTimeComponents.time,
       );
     } catch (e) {
-      print('EROOOOOOOOOOOOR' + e.toString());
+      print('ERROR' + e.toString());
     }
   }
 
