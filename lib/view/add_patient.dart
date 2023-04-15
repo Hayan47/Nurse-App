@@ -211,7 +211,7 @@ class _AddPatientState extends State<AddPatient> {
                         id: 1,
                         title: patient.caringType,
                         body:
-                            '${c.nameController.text} (Room ${c.roomController.text}) ${_timeOfDay.hour} : ${_timeOfDay.minute}',
+                            '${c.nameController.text} (${'room'.tr} ${c.roomController.text})',
                         dateTime: DateTime(
                           DateTime.now().year,
                           DateTime.now().month,
