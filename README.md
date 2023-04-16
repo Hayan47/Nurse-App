@@ -29,6 +29,8 @@ features:
 * cancel or reactivate any reminder
 * supports English, French and Arabic
 
-apk download:
+note: be sure to set your time zone correct
+
+apk download: https://www.mediafire.com/file/06wx5wsz6a91kok/Wave_Heart.apk/file
 
 
