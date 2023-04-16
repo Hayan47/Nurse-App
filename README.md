@@ -16,8 +16,7 @@ $~~~~~~~~~~~$
 <img src="https://github.com/Hayan47/Hayan47/blob/main/nurse6.jpg" width="200" height="400" />
 </p>
 
-## Wave Heart is an app for nurses to organize their patients and make specific reminders of any care required in a particular time.
-built using flutter framework
+## Wave Heart is an app for nurses to organize their patients and make specific reminders of any care required in a particular time, built using flutter framework.
 ## used packages
 * getx for state management
 * sqflite for database
