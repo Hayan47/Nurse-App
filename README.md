@@ -17,12 +17,12 @@ $~~~~~~~~~~~$
 </p>
 
 ## Wave Heart is an app for nurses to organize their patients and make specific reminders of any care required in a particular time.
-# built using flutter framework
-## used packages:
+built using flutter framework
+## used packages
 * getx for state management
 * sqflite for database
 * flutter local notifications for reminders notifications
-## features:
+## features
 * simple UI screens easy to use
 * light and dark mode
 * add patients and their details
