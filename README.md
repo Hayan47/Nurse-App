@@ -22,11 +22,12 @@ Note: Be sure to set your time zone correctly to ensure the reminders work as ex
 
 ## Architecture
 
-Wave Heart is built using the Flutter framework and the GetX package for state management. The application is divided into three main layers:
+Wave Heart is built using the Flutter framework and follows the Model-View-Controller (MVC) architecture pattern. The application is divided into three main layers:
 
-- Presentation layer: This layer is responsible for rendering the UI and handling user interactions. The presentation layer communicates with the business logic layer to retrieve data and update the UI based on the current state.
-- Business logic layer: This layer contains the business logic of the application and manages the state of the application. The business logic layer communicates with the data layer to retrieve data and emits new states based on the current state and user actions.
-- Data layer: This layer is responsible for retrieving data from the Sqflite database. The data layer communicates with the business logic layer to retrieve data and update the database based on the current state.
+- Model layer: This layer is responsible for defining the data model and managing the data layer. In Wave Heart, the model layer contains the data models for patients and reminders, as well as the database management code using the Sqflite package.
+- View layer: This layer is responsible for rendering the UI and handling user interactions. The view layer in Wave Heart is implemented using the Flutter framework's widget tree and is responsible for displaying the UI components to the user.
+- Controller layer: This layer is responsible for managing the business logic of the application and acts as the mediator between the view and model layers. The controller layer in Wave Heart contains the business logic for adding patients, creating reminders, and canceling or reactivating reminders.
+
 
 ## Technologies Used
 
